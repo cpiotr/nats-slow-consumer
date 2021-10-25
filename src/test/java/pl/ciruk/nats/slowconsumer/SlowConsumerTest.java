@@ -30,7 +30,8 @@ public class SlowConsumerTest {
     void shouldReportDelayedMessages() throws InterruptedException {
         String host = NATS_SERVER.getContainerIpAddress();
         Integer port = NATS_SERVER.getFirstMappedPort();
-        SlowProxy.start(host, port, SLOW_PROXY_PORT);
+
+        startSlowProxyTo(host, port);
 
         Histogram histogram = createDelayHistogramAndStartLoggingIt();
 
@@ -54,6 +55,13 @@ public class SlowConsumerTest {
 
         threadPool.shutdown();
         threadPool.awaitTermination(1, TimeUnit.HOURS);
+    }
+
+    private void startSlowProxyTo(String host, Integer port) {
+        int mySlowConsumersCount = Configuration.getNumberOfSlowConsumers();
+        if (mySlowConsumersCount > 0) {
+            SlowProxy.start(host, port, SLOW_PROXY_PORT, mySlowConsumersCount);
+        }
     }
 
     @NotNull

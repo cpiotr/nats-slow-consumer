@@ -20,19 +20,18 @@ There is a TCP proxy configured to inject a hardcoded delay of 200ms for incomin
 Some classes had to be copied from Github to allow injecting custom code.
 
 ## Running
-There are three dependencies to run the project:
-* Maven
+There are two dependencies to run the project:
 * JDK 17
 * Docker daemon
 
 Once installed, the following command can be used to run the tests:
 ```shell
-mvn clean test
+./mvnw clean test
 ```
 
 By default, 4 confirmation consumers are created, 1 slow consumer and 1 confirmation publisher. These values can be overridden from the commandline:
 ```shell
-mvn clean test -Dnats.slow.proxy.port=23456 -Dnats.consumers.count=4 -Dnats.producers.count=4 -Dnats.consumers.slow.count=1
+./mvnw clean test -Dnats.slow.proxy.port=23456 -Dnats.consumers.count=4 -Dnats.producers.count=4 -Dnats.consumers.slow.count=1
 ```
 where:
 * `nats.slow.proxy.port` denotes the port to be used by the slow TCP proxy
@@ -67,6 +66,7 @@ INFO: TcpServer on port 12233 started
 ```
 
 ### Problem occurrence
+Please, note that sometimes it takes 50k messages to observe the delay.
 ```shell
 12:24:04.020 [main] INFO 🐳 [nats:1.4.1] - Container nats:1.4.1 started in PT1.187668S
 Oct 25, 2021 12:24:04 PM com.github.terma.javaniotcpserver.TcpServer start
