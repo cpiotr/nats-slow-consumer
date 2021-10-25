@@ -13,8 +13,8 @@ public class Configuration {
         return Integer.parseInt(System.getProperty("nats.producers.count", "1"));
     }
 
-    public static boolean isSlowConsumerEnabled() {
-        return Boolean.parseBoolean(System.getProperty("nats.consumers.slow.enabled", "true"));
+    public static int getNumberOfSlowConsumers() {
+        return Integer.parseInt(System.getProperty("nats.consumers.slow.count", "1"));
     }
 
     public static int getThreadNumber() {

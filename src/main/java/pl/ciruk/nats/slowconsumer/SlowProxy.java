@@ -21,12 +21,12 @@ import java.nio.channels.SocketChannel;
 public class SlowProxy {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    public static void start(String remoteHost, int remotePort, int localPort) {
+    public static void start(String remoteHost, int remotePort, int localPort, int threadPoolSize) {
         StaticTcpProxyConfig myProxyConfig = new StaticTcpProxyConfig(
                 localPort,
                 remoteHost,
                 remotePort,
-                4);
+                threadPoolSize);
         TcpProxy myTcpProxy = new TcpProxy(myProxyConfig);
         myTcpProxy.start();
     }
@@ -194,7 +194,7 @@ public class SlowProxy {
 
     private static void sleepUninterruptedly() {
         try {
-            Thread.sleep(900);
+            Thread.sleep(200);
         } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
             LOGGER.warn("Interrupted", exception);
