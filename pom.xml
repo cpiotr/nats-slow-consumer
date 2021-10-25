@@ -11,7 +11,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M2</maven-surefire-plugin.version>
         <testcontainers.version>1.16.1</testcontainers.version>
         <jnats.version>2.12.0</jnats.version>
         <junit-jupiter.version>5.7.2</junit-jupiter.version>
@@ -64,7 +64,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <argLine>-verbose:gc</argLine>
+                    <argLine>-Xlog:gc:stdout:time</argLine>
                 </configuration>
             </plugin>
             <plugin>

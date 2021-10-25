@@ -39,6 +39,12 @@ where:
 * `nats.consumers.count` represents the number of confirmation consumers
 * `nats.consumers.slow.count` represents the number of **slow** consumers of confirmations
 
+To ensure that the delays are not caused by GC, one can execute the Maven run in a debug mode:
+```shell
+./mvn clean test -X
+```
+Surefire plugin will include GC logs in the output. 
+
 ## Results
 ### Baseline
 ```shell
