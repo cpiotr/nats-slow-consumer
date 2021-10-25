@@ -194,7 +194,7 @@ public class SlowProxy {
 
     private static void sleepUninterruptedly() {
         try {
-            Thread.sleep(900);
+            Thread.sleep(200);
         } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
             LOGGER.warn("Interrupted", exception);

@@ -28,8 +28,9 @@ public class RequestProducer {
         while (!Thread.currentThread().isInterrupted()) {
             myConnection.publish(subject, Serialization.serialize(System.currentTimeMillis()));
             try {
-                Thread.sleep(10);
+                Thread.sleep(50);
             } catch (InterruptedException exception) {
+                Thread.currentThread().interrupt();
                 exception.printStackTrace();
             }
         }
