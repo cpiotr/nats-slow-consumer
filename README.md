@@ -1,5 +1,7 @@
 # NATS Slow Consumer test case
 ## Description
+The problem can be observed on NATS version >= 2.6.4
+
 Goal of this project is to illustrate the problem described in https://github.com/nats-io/nats-server/issues/2631 where 
 a single slow consumer causes message delays in _other_ clients.
 
