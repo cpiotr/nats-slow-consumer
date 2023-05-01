@@ -2,7 +2,7 @@ package pl.ciruk.nats.slowconsumer;
 
 public class Serialization {
     private static final int MASK = 0xFF;
-    static final int RESULT_SIZE_BYTES = 1024;
+    static final int RESULT_SIZE_BYTES = 50 * 1024;
 
     static byte[] serialize(long timestamp) {
         byte[] myBytes = new byte[RESULT_SIZE_BYTES];

@@ -12,7 +12,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <maven-surefire-plugin.version>3.0.0-M2</maven-surefire-plugin.version>
-        <testcontainers.version>1.16.1</testcontainers.version>
+        <testcontainers.version>1.17.3</testcontainers.version>
         <jnats.version>2.12.0</jnats.version>
         <junit-jupiter.version>5.7.2</junit-jupiter.version>
         <logback.version>1.2.3</logback.version>

@@ -1,5 +1,6 @@
 package pl.ciruk.nats.slowconsumer;
 
+import io.nats.client.Nats;
 import org.HdrHistogram.Histogram;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
@@ -10,11 +11,13 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.time.Duration;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Testcontainers
 public class SlowConsumerTest {
@@ -30,6 +33,7 @@ public class SlowConsumerTest {
     void shouldReportDelayedMessages() throws InterruptedException {
         String host = NATS_SERVER.getContainerIpAddress();
         Integer port = NATS_SERVER.getFirstMappedPort();
+        awaitNatsConnection(host, port);
 
         startSlowProxyTo(host, port);
 
@@ -55,6 +59,18 @@ public class SlowConsumerTest {
 
         threadPool.shutdown();
         threadPool.awaitTermination(1, TimeUnit.HOURS);
+    }
+
+    private static void awaitNatsConnection(String host, Integer port) throws InterruptedException {
+        AtomicBoolean connected = new AtomicBoolean();
+        while (!connected.get()) {
+            try {
+                Nats.connect(String.format("nats://%s:%s", host, port));
+                connected.set(true);
+            } catch (IOException exception) {
+                connected.set(false);
+            }
+        }
     }
 
     private void startSlowProxyTo(String host, Integer port) {
